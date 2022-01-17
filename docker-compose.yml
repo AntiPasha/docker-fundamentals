@@ -15,8 +15,7 @@ services:
           - "id-local.globomantics.com"
           - "www-local.globomantics.com"
 
-  globomantics.identityserver: 
-    image: ${DOCKER_REGISTRY-}globomanticsidentityserver
+  globomantics.identityserver:
     build:
       context: .
       dockerfile: Globomantics.IdentityServer/Dockerfile 
@@ -32,7 +31,7 @@ services:
   globomantics.ui: 
     build:
       context: .
-      dockerfile: Globomantics.Core/Dockerfile      
+      dockerfile: Globomantics.Core/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://*:5005
     depends_on:
@@ -45,7 +44,7 @@ services:
   globomantics.api: 
     build:
       context: .
-      dockerfile: Globomantics.Api/Dockerfile      
+      dockerfile: Globomantics.Api/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://*:5006
     ports:
@@ -77,8 +76,8 @@ services:
       dockerfile: sql/sql.Dockerfile
     restart: always
     ports:
-      - "1440:1433"   
-    environment:      
+      - "1440:1433"
+    environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Sqlc0ntainersFTW!
     networks:
