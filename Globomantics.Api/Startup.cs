@@ -46,17 +46,17 @@ namespace Globomantics.Api
         }
 
         public void Configure(IApplicationBuilder app, IApiVersionDescriptionProvider provider)
-        {            
+        {
             var virtualPath = "/api";
             app.Map(virtualPath, builder =>
             {
                 builder.UseApiExceptionHandler();  // defined locally
-               
+
                 builder.UseForwardedHeaders(new ForwardedHeadersOptions
                 {
                     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
                 });
-                
+
                 var corsOrigins = Configuration.GetValue<string>("CORSOrigins").Split(",");
                 if (corsOrigins.Any())
                 {

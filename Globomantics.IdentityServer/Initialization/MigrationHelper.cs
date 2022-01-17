@@ -18,12 +18,12 @@ namespace Globomantics.IdentityServer.Initialization
                 serviceScope?.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
                 serviceScope?.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.Migrate();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // If the database is not available yet just wait and try again
                 var dbConnection = serviceScope?.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database
                     .GetConnectionString();
-                Log.Information($"Failed performing migrations: {dbConnection}");
+                Log.Error($"Failed performing migrations: {dbConnection} {ex}");
 
                 Thread.Sleep(TimeSpan.FromSeconds(15));
                 app.ApplyDatabaseSchema();

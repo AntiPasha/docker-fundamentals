@@ -23,14 +23,14 @@ namespace Globomantics.Api.Extenstions
             return services;
         }
 
-        public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app, string virtualPath, 
+        public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app, string virtualPath,
             IConfiguration config, IApiVersionDescriptionProvider provider)
         {
             var clientId = config.GetValue<string>("AuthN:SwaggerClientId");
             app
                 .UseSwagger()
                 .UseSwaggerUI(options =>
-                {                    
+                {
                     foreach (var description in provider.ApiVersionDescriptions)
                     {
                         options.SwaggerEndpoint($"{virtualPath}/swagger/{description.GroupName}/swagger.json", $"Globomantics API {description.GroupName.ToUpperInvariant()}");
